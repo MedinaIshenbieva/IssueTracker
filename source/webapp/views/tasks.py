@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from webapp.forms import IssueTrackerForm, IssueTrackerDeleteForm
 from webapp.models import IssueTracker
 from webapp.views.base import SearchView
@@ -22,6 +22,15 @@ class IssueTrackerCreateView(LoginRequiredMixin, CreateView):
     model = IssueTracker
     form_class = IssueTrackerForm
     template_name = "tasks/create.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('webapp:task_view', kwargs={'task_pk': self.object.pk})
 
 
 class IssueTrackerView(DetailView):
