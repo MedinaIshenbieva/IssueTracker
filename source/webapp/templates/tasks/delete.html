@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="POST">
+    {% csrf_token %}
+        <h2>Введите название задачи {{ task.summary }}</h2>
+        {% include 'partial/form.html' with button_text="Удалить" %}
+    </form>
+    <a href="{% url "webapp:task_view" task.pk %}">Нет</a>
+{% endblock %}

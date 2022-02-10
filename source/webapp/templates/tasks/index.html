@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'partial/simple_search.html' %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    <h1>Задачи</h1>
+    {% for task in tasks %}
+        <h3>{{ task.upper }}</h3>
+        <p><a href="{{ task.get_absolute_url }}">Подробнее...</a></p>
+        <p><a href="{% url "webapp:task_update_view" task.pk %}">Редактировать</a></p>
+        <p><a href="{% url "webapp:task_delete_view" task.pk %}">Удалить</a></p>
+    {% endfor %}
+
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}IssueTracker {{ task.pk }}{% endblock %}
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url "webapp:task_update_view" task.pk %}">Редактировать</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url "webapp:task_delete_view" task.pk %}">Удалить</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url "webapp:task_project_create" task.pk %}">Добавить проект</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <h3>{{ task.summary }}</h3>
+    <p>{{ task.description }}</p>
+    <br>
+    <h3>Тип</h3>
+    {% for type in types %}
+        <span>{{ forloop.counter }}</span>
+        <p>{{ type.name }}</p>
+    {% endfor %}
+    <h3>Статус</h3>
+    {% for status in statuses %}
+        <span>{{ forloop.counter }}</span>
+        <p>{{ status.name }}</p>
+    {% endfor %}
+    <h3>Проекты</h3>
+    {% for project in projects %}
+        <span>{{ forloop.counter }}</span>
+        <p>{{ project.name }}</p>
+        <p>{{ project.description }}</p>
+        <p><a href="{% url "webapp:project_update_view" project.pk %}">Изменить</a></p>
+        <p><a href="{% url "webapp:project_delete_view" project.pk %}">Удалить</a></p>
+    {% endfor %}
