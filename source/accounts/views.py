@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse
 from django.views.generic import CreateView
-
 from accounts.forms import MyUserCreationForm
 
 
@@ -27,21 +26,23 @@ class RegisterView(CreateView):
             next_url = reverse('webapp:index')
         return next_url
 
-    def login_view(request):
-        if request.user.is_authenticated:
-            return redirect('webapp:index')
-        context = {}
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('webapp:index')
-            else:
-                context['has_error'] = True
-        return render(request, 'login.html', context=context)
 
-    def logout_view(request):
-        logout(request)
+def login_view(request):
+    if request.user.is_authenticated:
         return redirect('webapp:index')
+    context = {}
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('webapp:index')
+        else:
+            context['has_error'] = True
+    return render(request, 'login.html', context=context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('webapp:index')

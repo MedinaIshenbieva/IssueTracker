@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from webapp.forms import IssueTrackerForm, IssueTrackerDeleteForm
 from webapp.models import IssueTracker
 from webapp.views.base import SearchView
@@ -38,13 +37,16 @@ class IssueTrackerView(DetailView):
         return context
 
 
-class IssueTrackerUpdateView(UpdateView):
+class IssueTrackerUpdateView(LoginRequiredMixin,UpdateView):
     form_class = IssueTrackerForm
     template_name = "tasks/update.html"
     model = IssueTracker
 
+    def get_success_url(self):
+        return reverse('webapp:task_view', kwargs={'pk': self.object.pk})
 
-class IssueTrackerDeleteView(DeleteView):
+
+class IssueTrackerDeleteView(LoginRequiredMixin,DeleteView):
     model = IssueTracker
     template_name = "tasks/delete.html"
     success_url = reverse_lazy('webapp:index')

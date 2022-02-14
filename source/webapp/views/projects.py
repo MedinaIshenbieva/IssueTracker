@@ -1,12 +1,12 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from webapp.forms import ProjectForm
 from webapp.models import Project, IssueTracker
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin,CreateView):
     model = Project
     template_name = 'tasks/create.html'
     form_class = ProjectForm
@@ -19,7 +19,7 @@ class ProjectCreateView(CreateView):
         return redirect('webapp:task_view', pk=task.pk)
 
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin,UpdateView):
     model = Project
     template_name = 'projects/update.html'
     form_class = ProjectForm
@@ -28,7 +28,7 @@ class ProjectUpdateView(UpdateView):
         return reverse("webapp:task_view", kwargs={"pk": self.object.task.pk})
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin,DeleteView):
     model = Project
 
     def get(self, request, *args, **kwargs):
@@ -36,4 +36,3 @@ class ProjectDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("webapp:task_view", kwargs={"pk": self.object.task.pk})
-
