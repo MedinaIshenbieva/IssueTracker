@@ -23,12 +23,6 @@ class IssueTrackerCreateView(LoginRequiredMixin, CreateView):
     form_class = IssueTrackerForm
     template_name = "tasks/create.html"
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('accounts:login')
-
-        return super().dispatch(request, *args, **kwargs)
-
     def get_success_url(self):
         return reverse('webapp:task_view', kwargs={'task_pk': self.object.pk})
 
