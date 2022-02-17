@@ -123,7 +123,8 @@
     "name": "test2_1",
     "description": "description2_1",
     "start_time": "2022-02-07",
-    "finish_time": "2022-02-08"
+    "finish_time": "2022-02-08",
+    "author": 1
   }
 },
 {
@@ -133,7 +134,8 @@
     "name": "test2_2",
     "description": "description2_2",
     "start_time": "2022-02-07",
-    "finish_time": "2022-02-09"
+    "finish_time": "2022-02-09",
+    "author": 1
   }
 },
 {
@@ -143,25 +145,52 @@
     "name": "test2_3",
     "description": "description2_3",
     "start_time": "2022-02-09",
-    "finish_time": "2022-02-10"
+    "finish_time": "2022-02-10",
+    "author": 1
   }
 },
-  {
-  "model": "auth.user",
-  "pk": 1,
+{
+  "model": "webapp.project",
+  "pk": 4,
   "fields": {
-    "password": "pbkdf2_sha256$320000$GvoP8J9p0e7hWQFEzOgYaR$ZyWl9ZAjI0N2uWDfZSgyBo+Bhgs8TDqLlkaa55XfV5w=",
-    "last_login": "2022-01-13T12:44:11.530Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2022-01-13T12:43:53.822Z",
-    "groups": [],
-    "user_permissions": []
+    "name": "",
+    "description": "",
+    "start_time": "2022-02-17",
+    "finish_time": "2022-02-16",
+    "author": 2
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 5,
+  "fields": {
+    "name": "test",
+    "description": "",
+    "start_time": "2022-02-17",
+    "finish_time": "2022-02-22",
+    "author": 3
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 6,
+  "fields": {
+    "name": "test2",
+    "description": "qwertyu",
+    "start_time": "2022-02-07",
+    "finish_time": "2022-02-17",
+    "author": 4
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 7,
+  "fields": {
+    "name": "test3",
+    "description": "qwertrrrrrrrr",
+    "start_time": "2022-02-17",
+    "finish_time": "2022-02-22",
+    "author": 2
   }
 }
 ]
