@@ -1,5 +1,6 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 # Create your models here.
@@ -68,6 +69,13 @@ class Project(models.Model):
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name="Описание")
     start_time = models.DateField(blank=True, verbose_name="Дата начала")
     finish_time = models.DateField(null=True, verbose_name="Дата окончания")
+    author = models.ForeignKey(
+        get_user_model(),
+        related_name="tasks",
+        on_delete=models.SET_DEFAULT,
+        default=1,
+        verbose_name="Автор",
+    )
 
     def __str__(self):
         return f"{self.name}"
